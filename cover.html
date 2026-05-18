@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
+    <style>
+      @font-face {
+        font-family: "univers";
+        src: url("./UniversLTStd-Bold.ttf")format("truetype");
+	font-weight: 700;
+      }
+      body {
+        margin: 0;
+        font-family: "univers", sans-serif;
+        color: #CB333B;
+        background-color: #e7e9e7;
+      }
+      ::selection {
+        color: #e7e9e7;
+        background-color: #CB333B;
+      }
+      #cover, #back {
+        display: flex;
+        width: 3840px;
+	height: 3840px;
+      }
+      #coverInner, #backInner {
+	margin: auto;
+        text-align: center;
+      }
+      #artistName, #albumTitle {
+        margin: 0;
+        line-height: 1;
+      }
+      #albumTitle {
+        font-size: calc(3840*150px/1400);
+        letter-spacing: -5px;
+	text-transform: uppercase;
+        padding: 0 5px 0 0;
+      }
+      [hidden] {display: none !important}
+      #sideA {
+        margin: 0 0 calc(3840*30px/1400);
+      }
+      section h2 {
+        font-family: "mrs-eaves-roman-all-small-caps", serif;
+        font-size: calc(3840*(.8*50px)/1400);
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: 5px;
+        margin: 0;
+        padding: 0 0 0 5px;
+      }
+      #back {
+        flex-direction: column;
+      }
+      #back ol {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        font-size: calc(3840*50px/1400);
+        font-style: italic;
+        letter-spacing: 5px;
+        line-height: 1.5;
+        counter-reset: item;
+      }
+      #back ol li:before, #back ol li:after {
+        font-size: calc(3840*(.75*50px)/1400);
+        font-style: normal;
+      }
+      #back ol li:before {
+        counter-increment: item;
+        content: counter(item) " ";
+      }
+      #back ol li:after {
+        content: " " attr(data-length);
+      }
+      #back ol li {
+        padding: 0 0 0 5px;
+      }
+      /*#sideB ol {
+        counter-increment: item 8;
+      }*/
+      #colophon {
+        width: 75%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+	background: url("data:image/gif;base64,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") right bottom/contain no-repeat;
+	padding: 0 calc(3840*226px/1400 + 3840*40px/1400) 0 0;
+        height: calc(3840*100px/1400);
+        font-size: calc(3840*20px/1400);
+        color: #110d05;
+      }
+      #colophon ::selection {
+        background-color: #110d05;
+      }
+      #colophon p {
+        margin: 0;
+        text-align: justify;
+      }
+      #labels {
+        width: 1440px;
+      }
+      #a, #b {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 1440px;
+        text-align: center;
+      }
+      #labels header {
+        font-size: calc(3840*30px/1400);
+        line-height: 1;
+      }
+      #labels header * {
+        margin: 0;
+      }
+      #labels h2 {
+        font-size: calc(3840*45px/1400);
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: 2.5px;
+        padding: 0 0 0 2.5px;
+      }
+      #labels footer {
+        font-size: calc(3840*20px/1400);
+      }
+      #labels footer ol {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        list-style-type: none;
+        text-transform: uppercase;
+        counter-reset: item;
+      }
+      #labels footer ol li:before {
+        counter-increment: item;
+        content: counter(item) ". ";
+      }
+      #labels footer ol li:after {
+        content: "/";
+        margin: 0 20px;
+      }
+      .no-divider:after {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cover">
+        <div id="coverInner">
+	  <h1 id="albumTitle">Offred</h1>
+        </div>
+    </div>
+    <div id="back" hidden>
+        <div id="backInner">
+          <section id="sideA">
+            <h2>Side A</h2>
+            <ol>
+              <li data-length="03:54">Collection d&rsquo;Or</li>
+	      <li data-length="03:50">In The Sky</li>
+	      <li data-length="03:27">Low-Quality Love</li>
+	      <li data-length="02:06">Welcome To The Park</li>
+	      <li data-length="03:16">Politsiya</li>
+	      <li data-length="02:06">War Redux</li>
+	      <li data-length="02:47">Kapitalism</li>
+	      <li data-length="04:27">Piscine Had A Big Tiger</li>
+	    </ol>
+          </section>
+          <section id="sideB">
+	    <h2>Side B</h2>
+	    <ol>
+              <li data-length="05:38">Hung Up on MR S and MS M</li>
+	      <li data-length="03:16">Let&rsquo;s See</li>
+	      <li data-length="03:45">Emotional Creature</li>
+	      <li data-length="03:36">Hysteric</li>
+	      <li data-length="04:06">Escape</li>
+	      <li data-length="04:01">Zombie</li>
+            </ol>
+          </section>
+        </div>
+        <footer id="colophon">
+          <p>Valens Electrons Management &amp; Publishing, Inc., 10 Hanover Square, Suite 23K, New York, NY 10005-3510. ℗ &amp; &copy; 2017 A2, A5&ndash;A8, B2, &amp; B4&ndash;B6 (or. rec. &copy; 1994 Island Records Inc.),
+               2018 B1 (or. rec. &copy; 2005 Warner Bros. Records Inc.), 2021 A3, A4, &amp; B3, 2022 A1 MR S and MS M under exclusive license to Valens Electrons, Inc. Manufactured in the USA.
+               All Rights Reserved. Unauthorised duplication is a violation of applicable laws.</p>
+        </footer>
+    </div>
+    <div id="labels" hidden>
+      <div id="a">
+        <header>
+          <p class="label-artistName">MR S and MS M</p>
+          <h2>Collection d&rsquo;Or</h2>
+          <p>33 ⅓ RPM</p>
+        </header>
+        <footer>
+          <h3><strong>SIDE A</strong> (25:53)</h3>
+          <ol class="tracks">
+            <li>Collection d&rsquo;Or</li>
+	    <li class="no-divider">In The Sky</li>
+	    <li>Low-Quality Love</li>
+            <li class="no-divider">Welcome To The Park</li>
+	    <li>Politsiya</li>
+	    <li>War Redux</li>
+	    <li class="no-divider">Kapitalism</li>
+	    <li class="no-divider">Piscine Had A Big Tiger</li>
+          </ol>
+          <p>℗ &amp; &copy; 2017, 2021, 2022 MR S and MS M. The copyright in this sound recording and artwork is owned by MR S and MS M. Unauthorised copying, hiring, lending, public performance and broadcasting prohibited. All Rights Reserved. 9796214500337 / </p>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
