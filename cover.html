@@ -26,7 +26,7 @@
 		height: 3840px;
       }
       #coverInner, #backInner {
-	margin: auto;
+		margin: auto;
         text-align: center;
       }
       #artistName, #albumTitle {
@@ -37,6 +37,8 @@
         font-size: calc(3840*300px/1400);
         letter-spacing: -5px;
 		text-transform: uppercase;
+		text-box-trim: trim-both;
+		text-box-edge: cap alphabetic;
         padding: 0 5px 0 0;
       }
       [hidden] {display: none !important}
