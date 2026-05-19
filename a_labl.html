@@ -60,7 +60,7 @@
         line-height: 1.5;
         text-transform: uppercase;
         letter-spacing: 2.5px;
-        margin: 0;
+        margin: 0 0 .25em;
         padding: 0 0 0 2.5px;
       }
       #back {
@@ -151,6 +151,11 @@
 	text-transform: uppercase;
         padding: 0 0 0 2.5px;
       }
+      #oneThird {
+        display: inline-block;
+        text-box-trim: trim-both;
+        text-box-edge: cap alphabetic;
+      }
       #labels footer {
 	position: absolute;
 	top: 80px;
@@ -207,7 +212,7 @@
       <div id="a">
         <header>
           <h2>Gilead</h2>
-          <p>33 ⅓ RPM</p>
+          <p>33 <span id="oneThird">⅓</span> RPM</p>
         </header>
         <footer>
           <p>℗ &amp; &copy; 2027 (original recordings &copy; 2016, 2017) MR S and MS M. The copyright in this sound recording and artwork is owned by MR S and MS M. Unauthorised copying, hiring, lending, public performance and broadcasting prohibited. All Rights Reserved. 9784062195147 / OFF-LP-2195-01.</p>
