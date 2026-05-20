@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
+    <style>
+      @font-face {
+        font-family: "letter-gothic-std";
+        src: url("https://use.typekit.net/af/38fa9f/00000000000000007735d5d5/31/l?subset_id=2&fvd=i7&v=3") format("woff2"),
+             url("https://use.typekit.net/af/38fa9f/00000000000000007735d5d5/31/d?subset_id=2&fvd=i7&v=3") format("woff"),
+             url("https://use.typekit.net/af/38fa9f/00000000000000007735d5d5/31/a?subset_id=2&fvd=i7&v=3") format("opentype");
+        font-weight: 700;
+        font-style: italic;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: "univers";
+        src: url("./UniversLTStd-Black.otf") format("opentype");
+	font-weight: 800;
+      }
+      @font-face {
+        font-family: "univers";
+        src: url("./UniversLTStd-Bold.ttf") format("truetype");
+	font-weight: 700;
+      }
+      @font-face {
+        font-family: "univers";
+        src: url("./UniversLTStd.otf") format("truetype");
+	font-weight: 400;
+      }
+      body {
+        margin: 0;
+        font-family: "univers", sans-serif;
+	font-weight: 800;
+        color: #e7e9e7;
+        background-color: #CB333B;
+      }
+      ::selection {
+        color: #CB333B;
+        background-color: #e7e9e7;
+      }
+      #cover, #back, #sleeve {
+        display: flex;
+        width: 3840px;
+	height: 3840px;
+      }
+      #coverInner, #backInner {
+	margin: auto;
+        text-align: center;
+      }
+      #artistName, #albumTitle {
+        margin: 0;
+        line-height: 1;
+      }
+      #albumTitle {
+        font-size: calc(3840*300px/1400);
+        letter-spacing: -5px;
+	text-transform: uppercase;
+        padding: 0 5px 0 0;
+      }
+      [hidden] {display: none !important}
+      #sideA {
+        margin: 0 0 calc(3840*30px/1400);
+      }
+      section h2 {
+        font-size: calc(3840*30px/1400);
+        font-weight: 800;
+        line-height: 1.5;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        margin: 0 0 .25em;
+        padding: 0 0 0 2.5px;
+      }
+      #back {
+        flex-direction: column;
+      }
+      #back ol {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: .25em 1em;
+	width: 75%;
+        margin: 0 auto;
+        padding: 0;
+        list-style-type: none;
+        font-size: calc(3840*30px/1400);
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        line-height: 1.5;
+	color: #231F20;
+        counter-reset: item;
+      }
+      #back ol ::selection {
+	background-color: #231F20;
+	color: #e7e9e7;
+      }
+      #back ol li:before, #back ol li:after {
+        font-size: calc(3840*(.75*30px)/1400);
+        font-style: normal;
+        letter-spacing: 2.5px;
+      }
+      #back ol li:before {
+        counter-increment: item;
+        content: counter(item) " ";
+      }
+      #back ol li:after {
+        content: " " attr(data-length);
+      }
+      #back ol li {
+        padding: 0 0 0 5px;
+      }
+      /*#sideB ol {
+        counter-increment: item 6;
+      }*/
+      #colophon {
+        width: 75%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+	background: url("data:image/gif;base64,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") right bottom/contain no-repeat;
+	padding: 0 calc(3840*226px/1400 + 3840*40px/1400) 0 0;
+        height: calc(3840*100px/1400);
+        font-size: calc(3840*20px/1400);
+	font-weight: 400;
+      }
+      #colophon p {
+        margin: 0;
+        text-align: justify;
+      }
+      #labels {
+        width: 1440px;
+      }
+      #a, #b {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 1440px;
+	position: relative;
+	padding: 0 80px;
+	border-radius: 50%;
+        text-align: center;
+      }
+      #labels header {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+	width: 1200px;
+        font-size: calc(3840*25px/1400);
+        line-height: 1;
+      }
+      #labels header * {
+        margin: 0;
+      }
+      #labels h2 {
+        font-size: calc(3840*25px/1400);
+	font-weight: 800;
+        letter-spacing: 2.5px;
+	text-transform: uppercase;
+        padding: 0 0 0 2.5px;
+      }
+      #oneThird {
+        display: inline-block;
+        text-box-trim: trim-both;
+        text-box-edge: cap alphabetic;
+        color: transparent;
+        background: url("https://sig.monotype.com/render/105/font/1b5e00affcfdafc089bbab555fa0d092?rt=%E2%85%93&rs=240&w=298&fg=e7e9e7&bg=cb333b&t=o&sc=2&userLang=es&render_mode=new") 0.5px -1.75px/auto 72.5px no-repeat;
+      }
+      #labels footer {
+	position: absolute;
+	top: 80px;
+	right: 80px;
+	bottom: 80px;
+	left: 80px;
+	border-radius: 50%;
+        font-size: calc(3840*15px/1400);
+	font-weight: 400;
+      }
+      #labels footer p {
+        margin: 0;
+      }
+      #serials {
+        position: absolute;
+        bottom: 1em;
+        font-family: "letter-gothic-std";
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cover" hidden>
+        <div id="coverInner">
+	  <h1 id="albumTitle">Offred</h1>
+        </div>
+    </div>
+    <div id="back" hidden>
+        <div id="backInner">
+          <section id="sideA">
+            <h2>Mayday</h2>
+            <ol>
+              <li data-length="03:48">My Name Is Offred</li>
+	      <li data-length="03:43">Sons of Jacob</li>
+	      <li data-length="03:14">Past Life</li>
+	      <li data-length="04:19">Ceremony</li>
+	      <li data-length="03:33">As If</li>
+	      <li data-length="04:29">Nolite te bastardes carborundorum</li>
+	    </ol>
+          </section>
+          <section id="sideB">
+	    <h2>Mayday</h2>
+	    <ol>
+	      <li data-length="03:58">Mayday</li>
+	      <li data-length="03:35">Midnight Meetings</li>
+              <li data-length="03:27">Jezebel&rsquo;s</li>
+	      <li data-length="02:50">Salvaging</li>
+	      <li data-length="04:01">Ofglen</li>
+	      <li data-length="04:05">Trust Me</li>
+            </ol>
+          </section>
+        </div>
+        <footer id="colophon">
+          <p>Valens Electrons Management &amp; Publishing, Inc., 10 Hanover Square, Suite 23K, New York, NY 10005-3510.<br>℗ &amp; &copy; 2027 [original recordings &copy; 2016 A1&ndash;A3, A6, B4, B6&ndash;(B7),
+               2017 A4&ndash;A5, B1&ndash;B3, B5] MR S and MS M under exclusive license to Valens Electrons, Inc. Manufactured in the USA.
+               All Rights Reserved. Unauthorised duplication is a violation of applicable laws.</p>
+        </footer>
+    </div>
+    <div id="sleeve">
+        <div id="stamp">REPUBLIC OF GILEAD<br>ARCHIVAL DIVISION</div>
+        <div id="serials">
+            OFFRED / GILEAD RECORDING UNIT<br>
+            FILE NO. G-2195-00417<br>
+            CLASSIFICATION: SOUND TESTIMONY
+        </div>
+    </div>
+    <div id="labels" hidden>
+      <div id="a">
+        <header>
+          <h2>Gilead</h2>
+          <p>33 <span id="oneThirds">½</span> RPM</p>
+        </header>
+        <footer>
+          <p>℗ &amp; &copy; 2027 (original recordings &copy; 2016, 2017) MR S and MS M. The copyright in this sound recording and artwork is owned by MR S and MS M. Unauthorised copying, hiring, lending, public performance and broadcasting prohibited. All Rights Reserved. 9784062195140 / OFF-LP-2195-01.</p>
+        </footer>
+      </div>
+      <div id="b">
+        <header>
+          <h2>Mayday</h2>
+          <p>33 <span id="oneThird">½</span> RPM</p>
+        </header>
+        <footer>
+          <p>℗ &amp; &copy; 2027 (original recordings &copy; 2016, 2017) MR S and MS M. The copyright in this sound recording and artwork is owned by MR S and MS M. Unauthorised copying, hiring, lending, public performance and broadcasting prohibited. All Rights Reserved. 9784062195140 / OFF-LP-2195-01.</p>
+        </footer>
+      </div>
+    </div>
+<script>
+function makeCircular(selector, options = {}) {
+  const el = document.querySelector(selector);
+
+  if (!el) return;
+
+  const text = el.textContent.trim();
+
+  const size =
+    options.size ||
+    Math.min(
+      el.parentElement.offsetWidth,
+      el.parentElement.offsetHeight
+    );
+
+  const radius =
+    options.radius ||
+    Math.max(10, size / 2 - 20);
+
+  const pathId = "circlePath-" + Math.random().toString(36).slice(2);
+
+  el.innerHTML = `
+    <svg
+      width="${size}"
+      height="${size}"
+      viewBox="0 0 ${size} ${size}"
+      style="overflow: visible"
+    >
+      <defs>
+        <path
+          id="${pathId}"
+          d="
+            M ${size / 2}, ${size / 2}
+            m -${radius}, 0
+            a ${radius},${radius} 0 1,1 ${radius * 2},0
+            a ${radius},${radius} 0 1,1 -${radius * 2},0
+          "
+        />
+      </defs>
+
+      <text
+        fill="${options.color || "red"}"
+        font-size="${options.fontSize || 16}"
+        letter-spacing="${options.letterSpacing || 0}"
+      >
+        <textPath
+          href="#${pathId}"
+          startOffset="${options.offset || "0%"}"
+        >
+          ${text}
+        </textPath>
+      </text>
+    </svg>
+  `;
+}
+
+makeCircular("#b footer", {
+  color: "#e7e9e7",
+  fontSize: 3840*10.46875/1400,
+  size: 1280,
+});
+</script>
+  </body>
+</html>
